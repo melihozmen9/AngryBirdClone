@@ -10,13 +10,19 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-  var bird2 = SKSpriteNode()
-    
+var dragon = SKSpriteNode()
     
     
     override func didMove(to view: SKView) {
         
-        let texture = SKTexture(imageNamed: "bird")
+        let dragonTexture = SKTexture(imageNamed: "dragon")
+        dragon = childNode(withName: "dragon") as! SKSpriteNode
+        dragon.physicsBody = SKPhysicsBody(circleOfRadius: dragonTexture.size().height/5)
+        dragon.physicsBody?.isDynamic = true
+        dragon.physicsBody?.affectedByGravity = true
+        dragon.physicsBody?.mass = 0.5
+        
+        
        
     }
     
