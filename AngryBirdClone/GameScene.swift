@@ -38,9 +38,57 @@ var dragon = SKSpriteNode()
         let brickTexture = SKTexture(imageNamed: "brick")
         
         box1 = childNode(withName: "box1") as! SKSpriteNode
+        let boxSize = CGSize(width: brickTexture.size().width / 6 , height: brickTexture.size().height / 6 )
+        
+        box1.physicsBody = SKPhysicsBody.init(rectangleOf: boxSize)
         box1.physicsBody?.affectedByGravity = true
         box1.physicsBody?.isDynamic = true
         box1.physicsBody?.mass = 0.4
+        box1.physicsBody?.allowsRotation = true
+        
+        
+        box2 = childNode(withName: "box2") as! SKSpriteNode
+        box2.physicsBody = SKPhysicsBody.init(rectangleOf: boxSize)
+        box2.physicsBody?.isDynamic = true
+        box2.physicsBody?.affectedByGravity = true
+        box2.physicsBody?.allowsRotation = true
+        box2.physicsBody?.mass = 0.4
+        
+        
+        box3 = childNode(withName: "box3") as! SKSpriteNode
+        box3.physicsBody = SKPhysicsBody.init(rectangleOf: boxSize)
+        box3.physicsBody?.affectedByGravity = true
+        box3.physicsBody?.isDynamic = true
+        box3.physicsBody?.allowsRotation = true
+        box3.physicsBody?.mass = 0.4
+        
+        box4 = childNode(withName: "box4") as! SKSpriteNode
+        box4.physicsBody = SKPhysicsBody.init(rectangleOf: boxSize)
+        box4.physicsBody?.isDynamic = true
+        box4.physicsBody?.affectedByGravity = true
+        box4.physicsBody?.allowsRotation = true
+        box4.physicsBody?.mass = 0.4
+        
+        
+        box5 = childNode(withName: "box5") as! SKSpriteNode
+        box5.physicsBody = SKPhysicsBody.init(rectangleOf: boxSize)
+        box5.physicsBody?.affectedByGravity = true
+        box5.physicsBody?.isDynamic = true
+        box5.physicsBody?.allowsRotation = true
+        box5.physicsBody?.mass = 0.4
+        
+        
+        
+        box6 = childNode(withName: "box6") as! SKSpriteNode
+        box6.physicsBody = SKPhysicsBody.init(rectangleOf: boxSize)
+        box6.physicsBody?.isDynamic = true
+        box6.physicsBody?.affectedByGravity = true
+        box6.physicsBody?.allowsRotation = true
+        box6.physicsBody?.mass = 0.4
+        
+        
+        
+        
         
        
     }
