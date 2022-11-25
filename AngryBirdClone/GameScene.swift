@@ -19,6 +19,9 @@ var dragon = SKSpriteNode()
     var box6 = SKSpriteNode()
     
     
+    var gamestarted = false
+     
+    
     
     override func didMove(to view: SKView) {
         // PhysicsBody
@@ -31,7 +34,7 @@ var dragon = SKSpriteNode()
         dragon = childNode(withName: "dragon") as! SKSpriteNode
         dragon.physicsBody = SKPhysicsBody(circleOfRadius: dragonTexture.size().height/17)
         dragon.physicsBody?.isDynamic = true
-        dragon.physicsBody?.affectedByGravity = true
+        dragon.physicsBody?.affectedByGravity = false
         dragon.physicsBody?.mass = 0.5
         
         // boxes
@@ -107,14 +110,67 @@ var dragon = SKSpriteNode()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-      
+       /* dragon.physicsBody?.affectedByGravity = true
+        dragon.physicsBody?.applyImpulse(CGVector(dx: 200, dy: 200))
+ */
+        
+        if gamestarted == false {
+            if let touch = touches.first {
+                let touchLocation = touch.location(in: self)
+                let touchnodes = nodes(at: touchLocation)
+                if touchnodes.isEmpty == false {
+                    for nodes in touchnodes {
+                        if let sprite = nodes as? SKSpriteNode {
+                            if sprite == dragon {
+                                dragon.position = touchLocation
+                               
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-     
+        if gamestarted == false {
+            if let touch = touches.first {
+                let touchLocation = touch.location(in: self)
+                let touchnodes = nodes(at: touchLocation)
+                if touchnodes.isEmpty == false {
+                    for nodes in touchnodes {
+                        if let sprite = nodes as? SKSpriteNode {
+                            if sprite == dragon {
+                                dragon.position = touchLocation
+                               
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if gamestarted == false {
+            if let touch = touches.first {
+                let touchLocation = touch.location(in: self)
+                let touchnodes = nodes(at: touchLocation)
+                if touchnodes.isEmpty == false {
+                    for nodes in touchnodes {
+                        if let sprite = nodes as? SKSpriteNode {
+                            if sprite == dragon {
+                                dragon.position = touchLocation
+                                
+                               
+                            }
+                        }
+                    }
+                }
+            }
+        }
         
     }
     
