@@ -20,6 +20,8 @@ var dragon = SKSpriteNode()
     
     
     var gamestarted = false
+    
+    var originalPosition : CGPoint?
      
     
     
@@ -35,7 +37,8 @@ var dragon = SKSpriteNode()
         dragon.physicsBody = SKPhysicsBody(circleOfRadius: dragonTexture.size().height/17)
         dragon.physicsBody?.isDynamic = true
         dragon.physicsBody?.affectedByGravity = false
-        dragon.physicsBody?.mass = 0.5
+        dragon.physicsBody?.mass = 0.2
+        originalPosition = dragon.position
         
         // boxes
         let brickTexture = SKTexture(imageNamed: "brick")
@@ -46,7 +49,7 @@ var dragon = SKSpriteNode()
         box1.physicsBody = SKPhysicsBody.init(rectangleOf: boxSize)
         box1.physicsBody?.affectedByGravity = true
         box1.physicsBody?.isDynamic = true
-        box1.physicsBody?.mass = 0.4
+        box1.physicsBody?.mass = 0.1
         box1.physicsBody?.allowsRotation = true
         
         
@@ -55,7 +58,7 @@ var dragon = SKSpriteNode()
         box2.physicsBody?.isDynamic = true
         box2.physicsBody?.affectedByGravity = true
         box2.physicsBody?.allowsRotation = true
-        box2.physicsBody?.mass = 0.4
+        box2.physicsBody?.mass = 0.1
         
         
         box3 = childNode(withName: "box3") as! SKSpriteNode
@@ -63,14 +66,14 @@ var dragon = SKSpriteNode()
         box3.physicsBody?.affectedByGravity = true
         box3.physicsBody?.isDynamic = true
         box3.physicsBody?.allowsRotation = true
-        box3.physicsBody?.mass = 0.4
+        box3.physicsBody?.mass = 0.1
         
         box4 = childNode(withName: "box4") as! SKSpriteNode
         box4.physicsBody = SKPhysicsBody.init(rectangleOf: boxSize)
         box4.physicsBody?.isDynamic = true
         box4.physicsBody?.affectedByGravity = true
         box4.physicsBody?.allowsRotation = true
-        box4.physicsBody?.mass = 0.4
+        box4.physicsBody?.mass = 0.1
         
         
         box5 = childNode(withName: "box5") as! SKSpriteNode
@@ -78,7 +81,7 @@ var dragon = SKSpriteNode()
         box5.physicsBody?.affectedByGravity = true
         box5.physicsBody?.isDynamic = true
         box5.physicsBody?.allowsRotation = true
-        box5.physicsBody?.mass = 0.4
+        box5.physicsBody?.mass = 0.1
         
         
         
@@ -87,7 +90,7 @@ var dragon = SKSpriteNode()
         box6.physicsBody?.isDynamic = true
         box6.physicsBody?.affectedByGravity = true
         box6.physicsBody?.allowsRotation = true
-        box6.physicsBody?.mass = 0.4
+        box6.physicsBody?.mass = 0.1
         
         
         
@@ -162,7 +165,12 @@ var dragon = SKSpriteNode()
                     for nodes in touchnodes {
                         if let sprite = nodes as? SKSpriteNode {
                             if sprite == dragon {
-                                dragon.position = touchLocation
+                                let dx = -(touchLocation.x - originalPosition!.x)
+                                let dy = -(touchLocation.y - originalPosition!.y)
+                                let impulse = CGVector(dx: dx, dy: dy)
+                                dragon.physicsBody?.applyImpulse(impulse)
+                                dragon.physicsBody?.affectedByGravity = true
+                                gamestarted = true
                                 
                                
                             }
@@ -181,5 +189,20 @@ var dragon = SKSpriteNode()
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        if let dragonPhysicsBody = dragon.physicsBody {
+            if dragonPhysicsBody.velocity.dx <= 0 && dragonPhysicsBody.velocity.dy <= 0 && dragonPhysicsBody.angularVelocity <= 0 && gamestarted == true {
+                
+                dragon.physicsBody?.affectedByGravity = false
+                dragon.physicsBody?.velocity = CGVector(dx: 0,dy: 0)
+                dragon.physicsBody?.angularVelocity = 0
+                dragon.zPosition = 1
+                dragon.position = originalPosition!
+                gamestarted = false
+                
+                
+                
+            }
+        }
+        
     }
 }
